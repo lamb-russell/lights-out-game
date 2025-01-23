@@ -15,7 +15,7 @@
             background-color: #ccc;
             border: 1px solid #999;
             cursor: pointer;
-        }a
+        }
         .light.on {
             background-color: yellow;
         }
@@ -28,66 +28,67 @@
     <button onclick="resetGrid()">Reset</button>
 
     <script>
-    function resetGrid() {
+        const gridSize = 5;
+        const gridElement = document.getElementById("grid");
+        const messageElement = document.getElementById("message");
+
+        // Initialize the grid
+        let grid = [];
         for (let i = 0; i < gridSize; i++) {
+            grid[i] = [];
             for (let j = 0; j < gridSize; j++) {
-                grid[i][j] = Math.random() > 0.5;
+                grid[i][j] = Math.random() > 0.5; // Randomly set lights on/off
             }
         }
-        renderGrid();
-    }
-    </script>
-    <script>
-        const gridSize = 5;
-const gridElement = document.getElementById("grid");
-const messageElement = document.getElementById("message");
 
-// Initialize the grid
-let grid = [];
-for (let i = 0; i < gridSize; i++) {
-    grid[i] = [];
-    for (let j = 0; j < gridSize; j++) {
-        grid[i][j] = Math.random() > 0.5; // Randomly set lights on/off
-    }
-}
-
-// Render the grid
-function renderGrid() {
-    gridElement.innerHTML = "";
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            const light = document.createElement("div");
-            light.classList.add("light");
-            if (grid[i][j]) light.classList.add("on");
-            light.addEventListener("click", () => toggleLights(i, j));
-            gridElement.appendChild(light);
+        // Render the grid
+        function renderGrid() {
+            gridElement.innerHTML = "";
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    const light = document.createElement("div");
+                    light.classList.add("light");
+                    if (grid[i][j]) light.classList.add("on");
+                    light.addEventListener("click", () => toggleLights(i, j));
+                    gridElement.appendChild(light);
+                }
+            }
+            checkWin();
         }
-    }
-    checkWin();
-}
 
-// Toggle lights
-function toggleLights(i, j) {
-    grid[i][j] = !grid[i][j]; // Toggle clicked light
-    if (i > 0) grid[i - 1][j] = !grid[i - 1][j]; // Toggle above
-    if (i < gridSize - 1) grid[i + 1][j] = !grid[i + 1][j]; // Toggle below
-    if (j > 0) grid[i][j - 1] = !grid[i][j - 1]; // Toggle left
-    if (j < gridSize - 1) grid[i][j + 1] = !grid[i][j + 1]; // Toggle right
-    renderGrid();
-}
+        // Toggle lights
+        function toggleLights(i, j) {
+            grid[i][j] = !grid[i][j]; // Toggle clicked light
+            if (i > 0) grid[i - 1][j] = !grid[i - 1][j]; // Toggle above
+            if (i < gridSize - 1) grid[i + 1][j] = !grid[i + 1][j]; // Toggle below
+            if (j > 0) grid[i][j - 1] = !grid[i][j - 1]; // Toggle left
+            if (j < gridSize - 1) grid[i][j + 1] = !grid[i][j + 1]; // Toggle right
+            renderGrid();
+        }
 
-// Check win condition
-function checkWin() {
-    const isWin = grid.flat().every(light => !light);
-    if (isWin) {
-        messageElement.innerText = "You win!";
-    } else {
-        messageElement.innerText = "";
-    }
-}
+        // Check win condition
+        function checkWin() {
+            const isWin = grid.flat().every(light => !light);
+            if (isWin) {
+                messageElement.innerText = "You win!";
+            } else {
+                messageElement.innerText = "";
+            }
+        }
 
-// Initial render
-renderGrid();
+        // Reset the grid
+        function resetGrid() {
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    grid[i][j] = Math.random() > 0.5; // Randomize lights
+                }
+            }
+            messageElement.innerText = ""; // Clear win message
+            renderGrid(); // Re-render the grid
+        }
+
+        // Initial render
+        renderGrid();
     </script>
 </body>
 </html>
