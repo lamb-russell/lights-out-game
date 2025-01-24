@@ -3,7 +3,7 @@
 This is a simple game called "Lights Out" implemented in HTML, CSS, and JavaScript. The objective of the game is to turn off all the lights by clicking on them.
 
 ## How To Play
-1. Open the provided `index.html` file in your web browser.
+1. Open the provided `index.html` file in your web browser.  Or click [here](https://lamb-russell.github.io/lights-out-game/)
 2. You will see a grid of lights, each light can be either on or off initially.
 3. Click on a light to toggle its state.
 4. The clicked light and adjacent lights will also be toggled.
